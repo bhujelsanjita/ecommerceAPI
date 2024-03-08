@@ -3,6 +3,7 @@ const express = require('express');
 const Database = require('../config/dbconfig');
 const sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 let administratorController = {
     registerAdmin: (req,res)=>{
         if(
@@ -25,11 +26,13 @@ let administratorController = {
             // console.log("received all values");
             // console.log(req.body)
             let id = Math.round(Date.now()/1000);
+
+            let encryptedPassword = bcrypt.hashSync(req.body.AdminPassword,15);
             Administrator.create({
                 AdminId:id ,
                 AdminName: req.body.AdminName,
                 AdminEmail: req.body.AdminEmail,
-                AdminPassword: req.body.AdminPassword,
+                AdminPassword: encryptedPassword,
                 AdminUsername: req.body.AdminUsername
             }).then((result)=>{
                 console.log(result);

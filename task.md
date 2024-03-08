@@ -11,7 +11,7 @@
 - get my boookings(customer ID)
 - bookings cancel
 - get bookings information
-- login logout
+-  register login logout for customer
 
 ## API for admin
 - get my bookings(by using Admin authorization token)
