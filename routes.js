@@ -17,6 +17,10 @@ Router.post('/addCategory',productController.addCategory);
 Router.post('/createBookings',BookingController.createBookings);
 Router.post('/customerregistration',CustomerController.CustomerRegistration);
 Router.post('/customerlogin',CustomerController.CustomerLogin);
+Router.post('/saveaddress',CustomerController.SaveAddress);
+Router.post('/updateaddress',CustomerController.UpdateAddress);
+Router.post('/updatebookingstatus',BookingController.ChangeBoookingStatus);
+
 
 
 /*
@@ -32,6 +36,7 @@ Router.get('/getAllCategory',productController.getAllCategory);
 //    res.send(`<h1>${text}</h1>`);
 // })
 Router.get('/product/:category',productController.getAllProductByCategory);
+
 
 
 

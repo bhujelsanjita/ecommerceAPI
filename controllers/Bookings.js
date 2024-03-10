@@ -47,7 +47,7 @@ let BookingController = {
                 Bookings.create({
                     productName: req.body.productName,
                     CustomerName: req.body.CustomerName,
-                    BillingId: id,
+                    BookingId: id,
                     quantity: req.body.quantity,
                     price: req.body.price,
                     status: req.body.status
@@ -74,6 +74,71 @@ let BookingController = {
                 })
             })
           
+        }
+    },
+    ChangeBoookingStatus: (req, res) =>{
+        if(
+            req.headers.authorization == null ||
+            req.headers.authorization == ""||
+            req.headers.authorization == undefined
+        ){
+            return res.status(403).send({
+                success: false,
+                message: "unauthorised access"
+            })
+
+        }
+        else{
+            
+            let token = req.headers.authorization.split(" ")[1];
+            try{
+                let DecodedToken = jwt.decode(token);
+            }
+            catch(err){
+                return res.status(403).send({
+                    success: false,
+                    message: "Unauthorised token"
+                });
+            }
+            Bookings.update({
+                status: req.body.status,
+            },
+            {
+                raw:true,
+                where: {
+                    BookingId: req.body.bookingid,
+                    
+                }
+
+            })
+            .then((result)=>{
+                if(
+                    result == null ||
+                    result[0] == 0 ||
+                    result == ""
+                ){
+                    return res.status(403).send({
+                        success: false,
+                        message:"Not updated"
+                    })
+                }
+                else{
+                    return res.status(200).send({
+                        success: true,
+                        message: "Updated successfully"
+                    });
+                }
+            })
+            .catch((err)=>{
+                console.log(err);
+                return res.status(403).send({
+                    success: false,
+                    message: "something went wrong"
+                });
+            })
+
+            
+
         }
     }
     

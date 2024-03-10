@@ -11,7 +11,7 @@ const Bookings = Database.define("Bookings",{
         type:sequelize.STRING,
         allowNull: false
     },
-    BillingId:{
+    BookingId:{
         type:sequelize.INTEGER,
         allowNull: false,
         primaryKey: true
